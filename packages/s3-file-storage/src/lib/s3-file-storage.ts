@@ -89,6 +89,10 @@ export class S3FileStorage implements FileStorage {
    * Returns the URL for the given key in the S3 bucket.
    */
   private getObjectUrl(key: string): string {
+    // ensure the key doesn't start with a slash
+    if (key.startsWith('/')) {
+      key = key.slice(1);
+    }
     return `${this.bucketUrl}/${encodeURIComponent(key)}`;
   }
 
